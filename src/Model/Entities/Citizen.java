@@ -1,10 +1,10 @@
-package Model;
+package Model.Entities;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Citizen extends Person{
+public class Citizen extends Person {
     private String email;
     private List<Forwarding> forwardings = new ArrayList<>();
     public Citizen(String name, int age, String CPF, String RG, String phoneNumber1,

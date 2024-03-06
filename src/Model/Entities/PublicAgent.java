@@ -1,4 +1,7 @@
-package Model;
+package Model.Entities;
+
+import Model.Entities.Citizen;
+import Model.Entities.Person;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
