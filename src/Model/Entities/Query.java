@@ -8,7 +8,7 @@ public class Query {
     private LocalDateTime timeOfAppointment;
     private String address;
 
-    public Query(LocalDate dateOfAppointment, LocalDateTime timeOfAppointment, String address) {
+    public Query(Citizen citizen, Forwarding forwarding, LocalDate dateOfAppointment, LocalDateTime timeOfAppointment, String address) {
         this.dateOfAppointment = dateOfAppointment;
         this.timeOfAppointment = timeOfAppointment;
         this.address = address;
