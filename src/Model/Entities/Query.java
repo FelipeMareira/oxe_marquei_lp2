@@ -2,7 +2,6 @@ package Model.Entities;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 public class Query {
     private LocalDate dateOfAppointment;
     private LocalDateTime timeOfAppointment;

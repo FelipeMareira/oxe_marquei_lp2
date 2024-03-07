@@ -1,4 +1,4 @@
 package Model.DAO;
 
-public class ForwardingDAO {
+public interface ForwardingDAO {
 }
