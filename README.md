@@ -71,32 +71,32 @@ O sistema deverá:
 ### Diagrama de Classes
 ```mermaid
 
-
 classDiagram
 note "Gerenciamento de Consultas"
     class Person {
         <<Abstract>> 
         -String name
-        -int age
         -String CPF
         -String RG
         -String phoneNumber1
         -String phoneNumber2
         -LocalDate dateOfBirth
         -String address
-
     }
 
     Person <|-- PublicAgent
     Citizen --> PublicAgent
     class PublicAgent {
         -String code
-        -LocalDateTime workTime
+        -String login
+        -String password
+        -String typeUser
     }
 
     Person <|-- Citizen
     class Citizen {
         -String email
+        -String SIGTAP
     }
     
     Forwarding --> Citizen
@@ -111,10 +111,7 @@ note "Gerenciamento de Consultas"
         -LocalDate dateOfAppoitment
         -String nameOfAppoitmentDoctor
         -String address
-    }
-
-    class QueryManager {
+        
         -scheduleAppointment()
-        -cancelAppointment()     
+        -cancelAppointment()  
     }
-    QueryManager o-- Query
