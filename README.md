@@ -1,6 +1,6 @@
-# **Oxe Marquei**
+# **Agenda Dendê**
 
-Este projeto foi desenvolvido como avaliação da disciplina de *Linguagem de Programação II*. O Oxe Marquei é um sistema de marcação de consultas que possui como objetivo principal informatizar o processo de marcação e agendamento de consultas médicas. Tornando fácil requisitar a marcação de consultas e agendamento da mesmas.
+Este projeto foi desenvolvido como avaliação da disciplina de *Linguagem de Programação II*. A Agenda Dendê é um sistema de marcação de consultas que possui como objetivo principal informatizar o processo de marcação e agendamento de consultas médicas. Tornando fácil requisitar a marcação de consultas e agendamento da mesmas.
 
 
 ## Minimundo e Fluxo de uso
@@ -8,7 +8,6 @@ Este projeto foi desenvolvido como avaliação da disciplina de *Linguagem de Pr
 ### Motivação 
 
 A central de marcação da cidade X realiza a marcação de consultas de saúde da população com bastante afinco, entretanto todos os seus processos ainda são manuais, dificultando a organização das informações dos pacientes atendidos pela central. Todos os registros são em papeis, todavia, a secretária da saúde da cidade X deseja automatizar todo esse sistema, seja no cadastro dos cidadãos, atualização dos dados dos pacientes, marcação/agendamento de consultas e até a comunicação com os cidadãos atendidos. 
-
  
 
 ### Problemas Identificados: 
@@ -35,33 +34,33 @@ A central de marcação da cidade X realiza a marcação de consultas de saúde 
 
 O sistema deverá: 
 
-    1. Gerenciar pacientes 
-    2. Gerenciar agentes públicos 
-    3. Solicitar marcação de consultas 
-    4. Confirmar agendamento de consultas 
-    5. Relatório de consultas 
+ 1. Gerenciar pacientes 
+ 2. Gerenciar agentes públicos 
+ 3. Solicitar marcação de consultas 
+ 4. Confirmar agendamento de consultas 
+ 5. Relatório de consultas 
 
 #### Dos Menus: 
 **Login** 
 
-    1. Usuário 
-    2. Senha 
+ 1. Usuário 
+ 2. Senha 
 
 **Menu Inicial** 
 
-    1. Item 1
-    2. Item 2
+ 1. Item 1
+ 2. Item 2
    
 **Menu Gerenciar Pacientes**
 
-    1. Consultar paciente 
-    2. Cadastrar paciente 
-    3. Atualizar dados dos pacientes 
+ 1. Consultar paciente 
+ 2. Cadastrar paciente 
+ 3. Atualizar dados dos pacientes 
 
 **Menu Agendamento**
 
-    1. Agendar consulta 
-    2. Confirmar consulta 
+ 1. Agendar consulta 
+ 2. Confirmar consulta 
 
 **Menu Gerenciar Agentes Público (Admin)**
 
@@ -70,9 +69,10 @@ O sistema deverá:
 
 ### Diagrama de Classes
 ```mermaid
-
+---
+    title: Modelo de Diagrama de Classes
+---
 classDiagram
-note "Gerenciamento de Consultas"
     class Person {
         <<Abstract>> 
         -String name
@@ -81,14 +81,16 @@ note "Gerenciamento de Consultas"
         -String phoneNumber1
         -String phoneNumber2
         -LocalDate dateOfBirth
+        -LocalDate createdAt
         -String address
+        -String email
+
     }
 
     Person <|-- PublicAgent
     Citizen --> PublicAgent
     class PublicAgent {
-        -String code
-        -String login
+        -String user
         -String password
         -String typeUser
     }
@@ -108,10 +110,58 @@ note "Gerenciamento de Consultas"
 
     PublicAgent --> Query
     class Query {
-        -LocalDate dateOfAppoitment
-        -String nameOfAppoitmentDoctor
-        -String address
+        -LocalDate consultationDate
+        -String nameOfConsultationDoctor
+        -String officeAddress
         
         -scheduleAppointment()
         -cancelAppointment()  
     }
+```
+### Diagrama de Banco de Dados
+```mermaid
+---
+    title: Modelo de Banco de Dados
+---
+erDiagram 
+
+    PUBLICAGENT ||--o{ QUERY : "registra"
+    PUBLICAGENT {
+        string name
+        string CPF
+        string RG
+        string phoneNumber1
+        string phoneNumber2
+        LocalDate dateOfBirth
+        LocalDate createdAt
+        string address
+        string userr
+        string password
+        string typeUser
+    }
+    
+    CITIZEN ||--o{ FORWARDING : "possui"
+    CITIZEN {
+        string name
+        string CPF
+        string RG
+        string phoneNumber1
+        string phoneNumber2
+        LocalDate dateOfBirth
+        LocalDate created_at
+        string address
+        string email
+        string SIGTAP
+    }
+    FORWARDING ||--|| QUERY: "referencia"
+    FORWARDING {
+        string nameOfRequestDoctor
+        string CRM
+        string request
+    }
+    QUERY {
+        LocalDate consultationDate
+        string name_of_consultation_doctor
+        string officeAddress
+    }
+```
