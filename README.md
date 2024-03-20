@@ -40,17 +40,21 @@ O sistema deverá:
  4. Confirmar agendamento de consultas 
  5. Relatório de consultas 
 
-#### Dos Menus: 
+### Dos Menus: 
+
+#### Menus (Normal)
+
 **Login** 
 
  1. Usuário 
- 2. Senha 
+ 2. Senha
+ 3. Login
 
 **Menu Inicial** 
 
- 1. Item 1
- 2. Item 2
-   
+ 1. Pacientes
+ 2. Consultas
+
 **Menu Gerenciar Pacientes**
 
  1. Consultar paciente 
@@ -62,11 +66,24 @@ O sistema deverá:
  1. Agendar consulta 
  2. Confirmar consulta 
 
-**Menu Gerenciar Agentes Público (Admin)**
+#### Menus (Admin: +2 telas e +2 opções no menu inicial)
 
+**Menu Inicial**
+1. Pacientes
+2. Consultas
+3. Relatorio
+4. Gerenciar usuários
+   
 **Relatórios(Admin)**
+1. Gerar relatório
+2. Aplicar filtro
+   
 
-
+**Gerenciar usuários**
+1. Adicionar
+2. Editar
+3. Buscar
+   
 ### Diagrama de Classes
 ```mermaid
 ---

@@ -8,6 +8,6 @@ public interface PublicAgentDAO {
     void insert(PublicAgent publicAgent);
     void update(PublicAgent publicAgent);
     void deleteById(Integer id);
-    PublicAgent findyById(Integer id);
+    PublicAgent findById(Integer id);
     List<PublicAgent> findAll();
 }

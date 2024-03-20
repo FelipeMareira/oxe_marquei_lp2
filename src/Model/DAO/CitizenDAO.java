@@ -8,6 +8,6 @@ public interface CitizenDAO {
     void insert(Citizen citizen);
     void update(Citizen citizen);
     void deleteById(Integer id);
-    Citizen findyById(Integer id);
+    Citizen findById(Integer id);
     List<Citizen> findAll();
 }
