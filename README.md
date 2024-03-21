@@ -114,7 +114,6 @@ classDiagram
 
     Person <|-- Citizen
     class Citizen {
-        -String email
         -String SIGTAP
     }
     

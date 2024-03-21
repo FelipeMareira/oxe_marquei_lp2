@@ -1,16 +1,18 @@
 package Model.Entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Citizen extends Person {
     private String email;
-    private List<Forwarding> forwardings = new ArrayList<>();
-    public Citizen(String name, int age, String CPF, String RG, String phoneNumber1,
-                   String phoneNumber2, LocalDate dateOfBirth, String address, String email) {
-        super(name, age, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
+    private String SIGTAP;
+    public Citizen(String name, String CPF, String RG, String phoneNumber1,
+                   String phoneNumber2, LocalDate dateOfBirth, String address, String email, String SIGTAP) {
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
         this.email = email;
+        this.SIGTAP = SIGTAP;
     }
 
     public String getEmail() {
@@ -21,19 +23,11 @@ public class Citizen extends Person {
         this.email = email;
     }
 
-    public List<Forwarding> getForwardings() {
-        return forwardings;
+    public String getSIGTAP() {
+        return SIGTAP;
     }
 
-    public void addForwarding(Forwarding forwarding) {
-        this.forwardings.add(forwarding);
-    }
-
-    @Override
-    public String toString() {
-        return "Citizen{" +
-                "email='" + email + '\'' +
-                ", forwardings=" + forwardings +
-                '}';
+    public void setSIGTAP(String SIGTAP) {
+        this.SIGTAP = SIGTAP;
     }
 }
