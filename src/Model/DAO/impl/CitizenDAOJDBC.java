@@ -1,17 +1,8 @@
 package Model.DAO.impl;
 
 import Db.DatabaseConnection;
-import Model.DAO.CitizenDAO;
 import Model.Entities.Citizen;
-
-import javax.xml.crypto.Data;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +22,11 @@ public class CitizenDAOJDBC {
             pstm.setString(3, citizen.getRG());
             pstm.setString(4, citizen.getPhoneNumber1());
             pstm.setString(5, citizen.getPhoneNumber2());
-            pstm.setObject(6, citizen.getDateOfBirth());
-            pstm.setObject(7, citizen.getCreatedAt());
+            pstm.setDate(6, Date.valueOf(citizen.getDateOfBirth()));
+            pstm.setTimestamp(7, Timestamp.valueOf(citizen.getCreatedAt()));
             pstm.setString(8, citizen.getAddress());
             pstm.setString(9, citizen.getEmail());
             pstm.setString(10, citizen.getSIGTAP());
-            //pstm.execute();
 
             int rowsAffected = pstm.executeUpdate();
             if (rowsAffected > 0) {
@@ -110,16 +100,6 @@ public class CitizenDAOJDBC {
             rs = pstm.executeQuery();
 
             if (rs.next()) {
-//                Citizen citizen = new Citizen(
-//                        rs.getInt("idCitizen"), rs.getString("name"),
-//                        rs.getString("CPF"), rs.getString("RG"),
-//                        rs.getString("phoneNumber1"), rs.getString("phoneNumber2"),
-//                        LocalDate.ofInstant(rs.getDate("dateOfBirth").toInstant(), ZoneId.systemDefault()),
-//                        rs.getString("address"),
-//                        LocalDateTime.ofInstant(rs.getDate("createdAt").toInstant(), ZoneId.systemDefault()),
-//                        rs.getString("email"),
-//                        rs.getString("SIGTAP")
-//                );
                 Citizen citizen = new Citizen();
 
                 citizen.setIdCitizen(rs.getInt("idCitizen"));
@@ -128,15 +108,11 @@ public class CitizenDAOJDBC {
                 citizen.setRG(rs.getString("RG"));
                 citizen.setPhoneNumber1(rs.getString("phoneNumber1"));
                 citizen.setPhoneNumber2(rs.getString("phoneNumber2"));
-                citizen.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
+                pstm.setDate(6, Date.valueOf(citizen.getDateOfBirth()));
                 citizen.setAddress(rs.getString("address"));
-                citizen.setCreatedAt(rs.getDate("createdAt").toLocalDate());
+                citizen.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                 citizen.setEmail(rs.getString("email"));
                 citizen.setSIGTAP(rs.getString("SIGTAP"));
-
-
-
-//                citizen.setDateOfBirth(LocalDate.ofInstant(rs.getDate("dateOfBirth").toInstant(), ZoneId.systemDefault()));
 
                 return citizen;
             }
@@ -171,7 +147,7 @@ public class CitizenDAOJDBC {
                 citizen.setPhoneNumber2(rs.getString("phoneNumber2"));
                 citizen.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
                 citizen.setAddress(rs.getString("address"));
-                citizen.setCreatedAt(rs.getDate("createdAt").toLocalDate());
+                citizen.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                 citizen.setEmail(rs.getString("email"));
                 citizen.setSIGTAP(rs.getString("SIGTAP"));
 

@@ -11,7 +11,7 @@ public abstract class Person {
     private String phoneNumber1;
     private String phoneNumber2;
     private LocalDate dateOfBirth;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private String address;
 
     public Person(){
@@ -25,7 +25,7 @@ public abstract class Person {
         this.phoneNumber1 = phoneNumber1;
         this.phoneNumber2 = phoneNumber2;
         this.dateOfBirth = dateOfBirth;
-        this.createdAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
         this.address = address;
     }
 
@@ -77,11 +77,11 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
