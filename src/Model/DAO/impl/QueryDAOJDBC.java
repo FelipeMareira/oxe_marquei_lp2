@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class QueryDAOJDBC implements QueryDAO {
+public class QueryDAOJDBC {
     public void insert(Query query) {
         String sql = "INSERT INTO citizen(name) VALUES (?)";
         Connection conn = null;

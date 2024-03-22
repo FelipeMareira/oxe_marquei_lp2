@@ -1,8 +1,7 @@
 package Db;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
+
 public class DatabaseConnection {
 
     
@@ -26,6 +25,26 @@ public class DatabaseConnection {
                 System.out.println("Banco fechado");
             } catch (Exception e) {
                 // TODO: handle exception
+            }
+        }
+    }
+
+    public static void closeStatement(Statement st) {
+        if (st != null) {
+            try {
+                st.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void closeResultSet(ResultSet rs) {
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

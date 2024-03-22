@@ -9,35 +9,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PublicAgent extends Person {
-    private String code;
-    private LocalDateTime workTime;
 
-    private List<Citizen> citizens = new ArrayList<>();
-    public PublicAgent(String name, int age, String CPF, String RG, String phoneNumber1,
+    private Integer idPublicAgent;
+    private String user;
+    private String password;
+    private String typeUser;
+
+    public PublicAgent(Integer idPublicAgent, String name, String CPF, String RG, String phoneNumber1,
                        String phoneNumber2, LocalDate dateOfBirth, String address,
-                       String code, LocalDateTime workTime) {
-        super(name, age, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
-        this.code = code;
-        this.workTime = workTime;
+                       String user, String password, String typeUser) {
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
+        this.idPublicAgent = idPublicAgent;
+        this.user = user;
+        this.password = password;
+        this.typeUser = typeUser;
     }
 
-    public String getCode() {
-        return code;
+    public Integer getIdPublicAgent() {
+        return idPublicAgent;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setIdPublicAgent(Integer idPublicAgent) {
+        this.idPublicAgent = idPublicAgent;
     }
 
-    public LocalDateTime getWorkTime() {
-        return workTime;
+    public String getUser() {
+        return user;
     }
 
-    public void setWorkTime(LocalDateTime workTime) {
-        this.workTime = workTime;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public void addCitizen(Citizen citizen) {
-        this.citizens.add(citizen);
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTypeUser() {
+        return typeUser;
+    }
+
+    public void setTypeUser(String typeUser) {
+        this.typeUser = typeUser;
     }
 }

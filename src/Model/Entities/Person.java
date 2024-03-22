@@ -4,15 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class Person {
+
     private String name;
     private String CPF;
     private String RG;
     private String phoneNumber1;
     private String phoneNumber2;
     private LocalDate dateOfBirth;
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
     private String address;
 
+    public Person(){
+
+    }
     public Person(String name, String CPF, String RG, String phoneNumber1,
                   String phoneNumber2, LocalDate dateOfBirth, String address) {
         this.name = name;
@@ -21,7 +25,7 @@ public abstract class Person {
         this.phoneNumber1 = phoneNumber1;
         this.phoneNumber2 = phoneNumber2;
         this.dateOfBirth = dateOfBirth;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = LocalDate.now();
         this.address = address;
     }
 
@@ -73,11 +77,11 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -87,5 +91,19 @@ public abstract class Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", CPF='" + CPF + '\'' +
+                ", RG='" + RG + '\'' +
+                ", phoneNumber1='" + phoneNumber1 + '\'' +
+                ", phoneNumber2='" + phoneNumber2 + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", createdAt=" + createdAt +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

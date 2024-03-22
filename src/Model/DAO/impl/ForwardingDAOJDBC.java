@@ -8,35 +8,35 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ForwardingDAOJDBC implements ForwardingDAO {
-    public void insert(Forwarding forwarding) {
-        String sql = "INSERT INTO forwarding(name) VALUES (?)";
-        Connection conn = null;
-        PreparedStatement pstm =  null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            pstm = conn.prepareStatement(sql);
-
-            /*
-            pstm.set(valor esperado pela query);
-            * */
-
-            //pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-
-                if (conn != null) {
-                    conn.close();
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+public class ForwardingDAOJDBC  {
+//    public void insert(Forwarding forwarding) {
+//        String sql = "INSERT INTO forwarding(name) VALUES (?)";
+//        Connection conn = null;
+//        PreparedStatement pstm =  null;
+//
+//        try {
+//            conn = DatabaseConnection.getConnection();
+//            pstm = conn.prepareStatement(sql);
+//
+//            /*
+//            pstm.set(valor esperado pela query);
+//            * */
+//
+//            //pstm.execute();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                if (pstm != null) {
+//                    pstm.close();
+//                }
+//
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            }catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

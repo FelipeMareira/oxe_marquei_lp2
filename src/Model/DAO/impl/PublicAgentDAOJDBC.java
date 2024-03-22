@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PublicAgentDAOJDBC implements PublicAgentDAO{
+public class PublicAgentDAOJDBC {
     public void insert(PublicAgent publicAgent) {
         String sql = "INSERT INTO public_agent(name) VALUES (?)";
         Connection conn = null;
