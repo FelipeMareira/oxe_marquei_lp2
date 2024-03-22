@@ -1,8 +1,10 @@
 import Db.DatabaseConnection;
+import Model.DAO.CitizenDAO;
 import Model.DAO.impl.CitizenDAOJDBC;
 import Model.Entities.Citizen;
 
 import java.sql.Connection;
+import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class Main {
@@ -11,12 +13,13 @@ public class Main {
         System.out.println("Hello world!");
         DatabaseConnection.getConnection();
 
-        Citizen cidadao = new Citizen("Lucas", "07051202550", "20201020", "8888", "1111",
-                LocalDate.parse("2000-05-17"),
-                "Rua Francisco", "lucas@lucas.com", "040400");
+        Citizen cidadao = new Citizen("felipe", "1241414", "27211020", "8888", "1111",
+                LocalDate.parse("2000-06-17"),
+                "Rua Quisabor", "felipe@felipe.com", "14530");
         CitizenDAOJDBC citizenDAOJDBC = new CitizenDAOJDBC();
-//        citizenDAOJDBC.insert(cidadao);
 
-        System.out.println(citizenDAOJDBC.findById(1));
+        citizenDAOJDBC.deleteById(6);
+        System.out.println(citizenDAOJDBC.findAll());
+
     }
 }

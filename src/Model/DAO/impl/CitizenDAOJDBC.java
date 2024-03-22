@@ -1,12 +1,15 @@
 package Model.DAO.impl;
 
 import Db.DatabaseConnection;
+import Model.DAO.CitizenDAO;
 import Model.Entities.Citizen;
+
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CitizenDAOJDBC {
+public class CitizenDAOJDBC implements CitizenDAO {
     private Connection conn;
     public void insert(Citizen citizen) {
         String sql = "INSERT INTO CITIZEN(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, createdAt, address, email, SIGTAP) " +
@@ -28,24 +31,13 @@ public class CitizenDAOJDBC {
             pstm.setString(9, citizen.getEmail());
             pstm.setString(10, citizen.getSIGTAP());
 
-            int rowsAffected = pstm.executeUpdate();
-            if (rowsAffected > 0) {
-                pstm.execute();
-            }
+            pstm.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (pstm != null) {
-                    pstm.close();
-                }
-                if (conn != null) {
-                    DatabaseConnection.closeConnection(conn);
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
+            DatabaseConnection.closeStatement(pstm);
+            DatabaseConnection.closeConnection(conn);
         }
     }
 //
@@ -53,6 +45,7 @@ public class CitizenDAOJDBC {
         PreparedStatement pstm =  null;
 
         try {
+            conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
                     "UPDATE CITIZEN SET name = ?, phoneNumber1 = ?, phoneNumber2 = ?, address = ?, email = ? WHERE idCitizen = ?"
             );
@@ -64,11 +57,12 @@ public class CitizenDAOJDBC {
             pstm.setString(5, citizen.getEmail());
             pstm.setInt(6, citizen.getIdCitizen());
             pstm.executeUpdate();
-
+            System.out.println("FUNCIONOUUUU");
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
             DatabaseConnection.closeStatement(pstm);
+            DatabaseConnection.closeConnection(conn);
         }
     }
 
@@ -76,6 +70,7 @@ public class CitizenDAOJDBC {
         PreparedStatement pstm = null;
 
         try {
+            conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement("DELETE FROM CITIZEN WHERE idCitizen = ?");
 
             pstm.setInt(1, idCitizen);
@@ -83,6 +78,7 @@ public class CitizenDAOJDBC {
         }catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            DatabaseConnection.closeConnection(conn);
             DatabaseConnection.closeStatement(pstm);
         }
     }
@@ -108,7 +104,7 @@ public class CitizenDAOJDBC {
                 citizen.setRG(rs.getString("RG"));
                 citizen.setPhoneNumber1(rs.getString("phoneNumber1"));
                 citizen.setPhoneNumber2(rs.getString("phoneNumber2"));
-                pstm.setDate(6, Date.valueOf(citizen.getDateOfBirth()));
+                citizen.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
                 citizen.setAddress(rs.getString("address"));
                 citizen.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                 citizen.setEmail(rs.getString("email"));
@@ -120,6 +116,7 @@ public class CitizenDAOJDBC {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
+            DatabaseConnection.closeConnection(conn);
             DatabaseConnection.closeStatement(pstm);
             DatabaseConnection.closeResultSet(rs);
         }
@@ -131,6 +128,7 @@ public class CitizenDAOJDBC {
         ResultSet rs = null;
 
         try {
+            conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement("SELECT * FROM citizen");
             rs = pstm.executeQuery();
 
@@ -157,6 +155,7 @@ public class CitizenDAOJDBC {
         }catch(SQLException e){
             e.printStackTrace();
         }finally {
+            DatabaseConnection.closeConnection(conn);
             DatabaseConnection.closeStatement(pstm);
             DatabaseConnection.closeResultSet(rs);
         }
