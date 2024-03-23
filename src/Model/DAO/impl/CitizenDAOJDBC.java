@@ -11,6 +11,8 @@ import java.util.List;
 
 public class CitizenDAOJDBC implements CitizenDAO {
     private Connection conn;
+
+    @Override
     public void insert(Citizen citizen) {
         String sql = "INSERT INTO CITIZEN(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, createdAt, address, email, SIGTAP) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -40,7 +42,8 @@ public class CitizenDAOJDBC implements CitizenDAO {
             DatabaseConnection.closeConnection(conn);
         }
     }
-//
+
+    @Override
     public void update(Citizen citizen) {
         PreparedStatement pstm =  null;
 
@@ -66,23 +69,7 @@ public class CitizenDAOJDBC implements CitizenDAO {
         }
     }
 
-    public void deleteById(Integer idCitizen) {
-        PreparedStatement pstm = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            pstm = conn.prepareStatement("DELETE FROM CITIZEN WHERE idCitizen = ?");
-
-            pstm.setInt(1, idCitizen);
-            pstm.executeUpdate();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-        }
-    }
-
+    @Override
     public Citizen findById(Integer idCitizen) {
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -112,7 +99,6 @@ public class CitizenDAOJDBC implements CitizenDAO {
 
                 return citizen;
             }
-            return null;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -123,6 +109,7 @@ public class CitizenDAOJDBC implements CitizenDAO {
         return null;
     }
 
+    @Override
     public List<Citizen> findAll() {
         PreparedStatement pstm = null;
         ResultSet rs = null;

@@ -1,13 +1,16 @@
 package Model.DAO.impl;
 
 import Db.DatabaseConnection;
+import Model.DAO.PublicAgentDAO;
 import Model.Entities.PublicAgent;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PublicAgentDAOJDBC {
+public class PublicAgentDAOJDBC implements PublicAgentDAO {
     private Connection conn;
+
+    @Override
     public void insert(PublicAgent publicAgent) {
         String sql = "INSERT INTO PUBLIC_AGENT(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, createdAt, address, email, userr, password, typeUser) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -39,7 +42,8 @@ public class PublicAgentDAOJDBC {
             DatabaseConnection.closeConnection(conn);
         }
     }
-    //
+
+    @Override
     public void update(PublicAgent publicAgent) {
         PreparedStatement pstm =  null;
 
@@ -66,6 +70,7 @@ public class PublicAgentDAOJDBC {
         }
     }
 
+    @Override
     public void deleteById(Integer idPublicAgent) {
         PreparedStatement pstm = null;
 
@@ -83,6 +88,7 @@ public class PublicAgentDAOJDBC {
         }
     }
 
+    @Override
     public PublicAgent findById(Integer idPublicAgent) {
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -123,6 +129,7 @@ public class PublicAgentDAOJDBC {
         return null;
     }
 
+    @Override
     public List<PublicAgent> findAll() {
         PreparedStatement pstm = null;
         ResultSet rs = null;

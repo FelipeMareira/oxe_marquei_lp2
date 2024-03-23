@@ -9,7 +9,6 @@ public class Query {
     private LocalDateTime dateAndTimeConsultation;
     private String officeAddress;
     private PublicAgent publicAgent;
-
     private Forwarding forwarding;
 
     public Query() {
