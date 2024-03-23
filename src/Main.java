@@ -1,10 +1,6 @@
 import Db.DatabaseConnection;
-import Model.DAO.CitizenDAO;
 import Model.DAO.impl.CitizenDAOJDBC;
 import Model.Entities.Citizen;
-
-import java.sql.Connection;
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 
 public class Main {
