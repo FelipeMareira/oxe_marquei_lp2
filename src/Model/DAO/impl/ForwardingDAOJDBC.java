@@ -23,7 +23,7 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "INSERT * FROM FORWARDING(CRM, request, nameOfRequestDoctor, idCitizen) VALUES (?, ?, ?, ?)"
+                    "INSERT INTO FORWARDING(CRM, request, nameOfRequestDoctor, idCitizen) VALUES (?, ?, ?, ?)"
             );
 
             pstm.setString(1, forwarding.getCRM());
@@ -49,10 +49,10 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT f.* FROM FORWARDING f INNER JOIN CITIZEN c ON f.idCitizen = c.idCitizen WHERE c.idCitizen = ?"
+                    "SELECT f.* FROM FORWARDING f INNER JOIN CITIZEN c ON f.idCitizen = c.idCitizen WHERE f.idForwarding = ?"
             );
             pstm.setInt(1, idForwarding);
-            pstm.executeQuery();
+            rs = pstm.executeQuery();
 
             if (rs.next()) {
                 Forwarding forwarding = new Forwarding();

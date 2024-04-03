@@ -95,7 +95,7 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
 
         try {
             conn = DatabaseConnection.getConnection();
-            pstm = conn.prepareStatement("SELECT * FROM citizen WHERE idCitizen = ?");
+            pstm = conn.prepareStatement("SELECT * FROM PUBLIC_AGENT WHERE idPublicAgent = ?");
 
             pstm.setInt(1, idPublicAgent);
 
@@ -114,7 +114,7 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
                 publicAgent.setAddress(rs.getString("address"));
                 publicAgent.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                 publicAgent.setEmail(rs.getString("email"));
-                publicAgent.setTypeUser(rs.getString("typerUser"));
+                publicAgent.setTypeUser(rs.getString("typeUser"));
 
                 return publicAgent;
             }
@@ -154,7 +154,7 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
                 publicAgent.setAddress(rs.getString("address"));
                 publicAgent.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                 publicAgent.setEmail(rs.getString("email"));
-                publicAgent.setTypeUser(rs.getString("typerUser"));
+                publicAgent.setTypeUser(rs.getString("typeUser"));
 
                 listPublicAgent.add(publicAgent);
             }

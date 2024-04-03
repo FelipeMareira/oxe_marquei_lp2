@@ -29,6 +29,16 @@ public class PublicAgent extends Person {
         this.typeUser = typeUser;
     }
 
+    public PublicAgent(String name, String CPF, String RG, String phoneNumber1,
+                       String phoneNumber2, LocalDate dateOfBirth, String address, String email,
+                       String user, String password, String typeUser) {
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
+        this.email = email;
+        this.user = user;
+        this.password = password;
+        this.typeUser = typeUser;
+    }
+
     public PublicAgent(Integer idPublicAgent, String name, String CPF, String RG, String phoneNumber1,
                        String phoneNumber2, LocalDate dateOfBirth, String address, String email) {
         super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);

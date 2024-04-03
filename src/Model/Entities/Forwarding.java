@@ -17,6 +17,12 @@ public class Forwarding {
         this.nameOfRequestDoctor = nameOfRequestDoctor;
         this.citizen = citizen;
     }
+    public Forwarding(String CRM, String request, String nameOfRequestDoctor, Citizen citizen) {
+        this.CRM = CRM;
+        this.request = request;
+        this.nameOfRequestDoctor = nameOfRequestDoctor;
+        this.citizen = citizen;
+    }
 
     public Integer getIdForwarding() {
         return idForwarding;
@@ -56,5 +62,16 @@ public class Forwarding {
 
     public void setCitizen(Citizen citizen) {
         this.citizen = citizen;
+    }
+
+    @Override
+    public String toString() {
+        return "Forwarding{" +
+                "idForwarding=" + idForwarding +
+                ", CRM='" + CRM + '\'' +
+                ", request='" + request + '\'' +
+                ", nameOfRequestDoctor='" + nameOfRequestDoctor + '\'' +
+                ", citizen=" + citizen +
+                '}';
     }
 }

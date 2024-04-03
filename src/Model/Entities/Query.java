@@ -24,6 +24,15 @@ public class Query {
         this.publicAgent = publicAgent;
         this.forwarding = forwarding;
     }
+    public Query(String nameOfConsultationDoctor, LocalDateTime dateAndTimeConsultation,
+                 String officeAddress, PublicAgent publicAgent, Forwarding forwarding) {
+
+        this.nameOfConsultationDoctor = nameOfConsultationDoctor;
+        this.dateAndTimeConsultation = dateAndTimeConsultation;
+        this.officeAddress = officeAddress;
+        this.publicAgent = publicAgent;
+        this.forwarding = forwarding;
+    }
 
     public Integer getIdQuery() {
         return idQuery;
