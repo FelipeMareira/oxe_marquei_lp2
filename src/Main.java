@@ -1,4 +1,5 @@
 import Db.DatabaseConnection;
+import Model.DAO.PacientDAO;
 import Model.DAO.impl.ForwardingDAOJDBC;
 import Model.DAO.impl.PacientDAOJDBC;
 import Model.DAO.impl.PublicAgentDAOJDBC;
@@ -50,6 +51,7 @@ public class Main {
 //                "49203221", LocalDate.parse("1995-06-18"), "Rua BC",
 //                "almeida@almeida.com", "almeidinha", "802832", "normal"
 //        );
+//        publicAgentDAOJDBC.insert(publicAgent1);
 //        publicAgentDAOJDBC.insert(publicAgent2);
 //        System.out.println(publicAgentDAOJDBC.findAll());
 
@@ -93,15 +95,33 @@ public class Main {
 //        System.out.println(publicAgentDAOJDBC.findAll());
 
 //        System.out.println("\n" + "-------------------------------- UPDATE --------------------------" + "\n");
+//        pacientDAOJDBC.update(
+//                "1-252525",
+//                "2-252525",
+//                "Rua Baixo",
+//                "luska.soliver7@gmail.com",
+//                1
+//        );
+//        publicAgentDAOJDBC.update(
+//            "333",
+//                "Rua CB",
+//                "ricarda@ricardin.com",
+//                2
+//        );
+//        queryDAOJDBC.update(
+//                LocalDateTime.parse("2025-12-30T19:34:50.63"),
+//                4
+//        );
+//        System.out.println("\n" + "-------------------------------- SENDER EMAIL --------------------------" + "\n");
+
         Query query = queryDAOJDBC.findById(4);
         Forwarding forwarding = forwardingDAOJDBC.findById(query.getForwarding().getIdForwarding());
         Pacient paciente = pacientDAOJDBC.findById(forwarding.getPacient().getIdPacient());
-
+//
         SendEmail.sender(
                 "lucassdeoliveira@outlook.com.br",
                 "Agendamento",
                 "Consulta Marcada no dia " + query.getDateAndTimeConsultation()
         );
-
     }
 }

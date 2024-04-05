@@ -7,6 +7,7 @@ import Model.Entities.PublicAgent;
 import Model.Entities.Query;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +41,16 @@ public class QueryDAOJDBC implements QueryDAO {
         }
     }
     @Override
-    public void update(Query query){
+    public void update(LocalDateTime dateAndTimeOfConsultation, int idQuery){
         PreparedStatement pstm = null;
 
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "UPDATE QUERY SET dateAndTimeOfConsultation = ? WHERE idQuery = ?"
+                    "UPDATE QUERY SET dateAndTimeConsultation = ? WHERE idQuery = ?"
             );
-            pstm.setTimestamp(1, Timestamp.valueOf(query.getDateAndTimeConsultation()));
+            pstm.setTimestamp(1, Timestamp.valueOf(dateAndTimeOfConsultation));
+            pstm.setInt(2, idQuery);
             pstm.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();

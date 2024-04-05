@@ -44,22 +44,19 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
     }
 
     @Override
-    public void update(PublicAgent publicAgent) {
+    public void update(String phoneNumber1, String address, String email, int idPublicAgent) {
         PreparedStatement pstm =  null;
 
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "UPDATE PUBLIC_AGENT SET name = ?, phoneNumber1 = ?, phoneNumber2 = ?, address = ?, email = ?, password = ? WHERE idPublicAgent = ?"
+                    "UPDATE PUBLIC_AGENT SET phoneNumber1 = ?, address = ?, email = ? WHERE idPublicAgent = ?"
             );
 
-            pstm.setString(1, publicAgent.getName());
-            pstm.setString(2, publicAgent.getPhoneNumber1());
-            pstm.setString(3, publicAgent.getPhoneNumber2());
-            pstm.setString(4, publicAgent.getAddress());
-            pstm.setString(5, publicAgent.getEmail());
-            pstm.setString(6, publicAgent.getPassword());
-            pstm.setInt(6, publicAgent.getIdPublicAgent());
+            pstm.setString(1, phoneNumber1);
+            pstm.setString(2, address);
+            pstm.setString(3, email);
+            pstm.setInt(4, idPublicAgent);
             pstm.executeUpdate();
             System.out.println("FUNCIONOUUUU");
         } catch (SQLException e){

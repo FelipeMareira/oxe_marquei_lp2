@@ -44,21 +44,20 @@ public class PacientDAOJDBC implements PacientDAO {
     }
 
     @Override
-    public void update(Pacient pacient) {
+    public void update(String phoneNumber1, String phoneNumber2, String address, String email, int idPacient) {
         PreparedStatement pstm =  null;
 
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "UPDATE PACIENT SET name = ?, phoneNumber1 = ?, phoneNumber2 = ?, address = ?, email = ? WHERE idPacient = ?"
+                    "UPDATE PACIENT SET phoneNumber1 = ?, phoneNumber2 = ?, address = ?, email = ? WHERE idPacient = ?"
             );
 
-            pstm.setString(1, pacient.getName());
-            pstm.setString(2, pacient.getPhoneNumber1());
-            pstm.setString(3, pacient.getPhoneNumber2());
-            pstm.setString(4, pacient.getAddress());
-            pstm.setString(5, pacient.getEmail());
-            pstm.setInt(6, pacient.getIdPacient());
+            pstm.setString(1, phoneNumber1);
+            pstm.setString(2, phoneNumber2);
+            pstm.setString(3, address);
+            pstm.setString(4, email);
+            pstm.setInt(5, idPacient);
             pstm.executeUpdate();
             System.out.println("FUNCIONOUUUU");
         } catch (SQLException e){

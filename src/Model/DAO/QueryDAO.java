@@ -2,11 +2,12 @@ package Model.DAO;
 
 import Model.Entities.Query;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface QueryDAO {
     void insert(Query query);
-    void update(Query query);
+    void update(LocalDateTime dateAndTimeOfConsultation, int idQuery);
     Query findById(Integer id);
     List<Query> findAll();
 }
