@@ -5,23 +5,23 @@ public class Forwarding {
     private String CRM;
     private String request;
     private String nameOfRequestDoctor;
-    private Citizen citizen;
+    private Pacient pacient;
 
     public Forwarding() {
 
     }
-    public Forwarding(Integer idForwarding, String CRM, String request, String nameOfRequestDoctor, Citizen citizen) {
+    public Forwarding(Integer idForwarding, String CRM, String request, String nameOfRequestDoctor, Pacient pacient) {
         this.idForwarding = idForwarding;
         this.CRM = CRM;
         this.request = request;
         this.nameOfRequestDoctor = nameOfRequestDoctor;
-        this.citizen = citizen;
+        this.pacient = pacient;
     }
-    public Forwarding(String CRM, String request, String nameOfRequestDoctor, Citizen citizen) {
+    public Forwarding(String CRM, String request, String nameOfRequestDoctor, Pacient pacient) {
         this.CRM = CRM;
         this.request = request;
         this.nameOfRequestDoctor = nameOfRequestDoctor;
-        this.citizen = citizen;
+        this.pacient = pacient;
     }
 
     public Integer getIdForwarding() {
@@ -56,12 +56,12 @@ public class Forwarding {
         this.nameOfRequestDoctor = nameOfRequestDoctor;
     }
 
-    public Citizen getCitizen() {
-        return citizen;
+    public Pacient getPacient() {
+        return pacient;
     }
 
-    public void setCitizen(Citizen citizen) {
-        this.citizen = citizen;
+    public void setPacient(Pacient pacient) {
+        this.pacient = pacient;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Forwarding {
                 ", CRM='" + CRM + '\'' +
                 ", request='" + request + '\'' +
                 ", nameOfRequestDoctor='" + nameOfRequestDoctor + '\'' +
-                ", citizen=" + citizen +
+                ", pacient=" + pacient +
                 '}';
     }
 }

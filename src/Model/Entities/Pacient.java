@@ -1,40 +1,43 @@
 package Model.Entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Citizen extends Person {
+public class Pacient extends Person {
 
-    private int idCitizen;
+    private int idPacient;
     private String email;
     private String SIGTAP;
 
-    public Citizen() {
+    public Pacient() {
 
     }
-    public Citizen(int idCitizen, String name, String CPF, String RG, String phoneNumber1,
+    public Pacient(int idPacient, String name, String CPF, String RG, String phoneNumber1,
                    String phoneNumber2, LocalDate dateOfBirth, String address, String email, String SIGTAP) {
         super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
-        this.idCitizen = idCitizen;
+        this.idPacient = idPacient;
         this.email = email;
         this.SIGTAP = SIGTAP;
     }
 
-    public Citizen(String name, String CPF, String RG, String phoneNumber1,
+    public Pacient(String name, String CPF, String RG, String phoneNumber1,
                    String phoneNumber2, LocalDate dateOfBirth, String address, String email, String SIGTAP) {
         super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
         this.email = email;
         this.SIGTAP = SIGTAP;
     }
-
-    public int getIdCitizen() {
-        return idCitizen;
+    public Pacient(String name, String CPF, String RG, String phoneNumber1,
+                   LocalDate dateOfBirth, String address, String email, String SIGTAP) {
+        super(name, CPF, RG, phoneNumber1, dateOfBirth, address);
+        this.email = email;
+        this.SIGTAP = SIGTAP;
     }
 
-    public void setIdCitizen(int idCitizen) {
-        this.idCitizen = idCitizen;
+    public int getIdPacient() {
+        return idPacient;
+    }
+
+    public void setIdPacient(int idPacient) {
+        this.idPacient = idPacient;
     }
 
     public String getEmail() {
@@ -56,7 +59,7 @@ public class Citizen extends Person {
     @Override
     public String toString() {
         return "Citizen{" +
-                "idCitizen=" + idCitizen +
+                "  idPacient=" + idPacient +
                 ", email='" + email + '\'' +
                 ", SIGTAP='" + SIGTAP + '\'' +
                 '}';

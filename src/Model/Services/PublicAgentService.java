@@ -1,13 +1,5 @@
 package Model.Services;
 
-import Model.DAO.CitizenDAO;
-import Model.DAO.DAOFactory;
-import Model.DAO.PublicAgentDAO;
-import Model.Entities.Citizen;
-import Model.Entities.PublicAgent;
-
-import java.util.List;
-
 public class PublicAgentService {
 //    private PublicAgentDAO publicAgentDAO = DAOFactory.createPublicAgentDAO();
 //

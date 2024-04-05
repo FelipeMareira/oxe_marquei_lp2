@@ -2,10 +2,9 @@ package Model.DAO.impl;
 
 import Db.DatabaseConnection;
 import Model.DAO.ForwardingDAO;
-import Model.Entities.Citizen;
+import Model.Entities.Pacient;
 import Model.Entities.Forwarding;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,13 +22,13 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "INSERT INTO FORWARDING(CRM, request, nameOfRequestDoctor, idCitizen) VALUES (?, ?, ?, ?)"
+                    "INSERT INTO FORWARDING(CRM, request, nameOfRequestDoctor, idPacient) VALUES (?, ?, ?, ?)"
             );
 
             pstm.setString(1, forwarding.getCRM());
             pstm.setString(2, forwarding.getRequest());
             pstm.setString(3, forwarding.getNameOfRequestDoctor());
-            pstm.setInt(4, forwarding.getCitizen().getIdCitizen());
+            pstm.setInt(4, forwarding.getPacient().getIdPacient());
 
             pstm.execute();
 
@@ -49,21 +48,21 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT f.* FROM FORWARDING f INNER JOIN CITIZEN c ON f.idCitizen = c.idCitizen WHERE f.idForwarding = ?"
+                    "SELECT f.* FROM FORWARDING f INNER JOIN PACIENT p ON f.idPacient = p.idPacient WHERE f.idForwarding = ?"
             );
             pstm.setInt(1, idForwarding);
             rs = pstm.executeQuery();
 
             if (rs.next()) {
                 Forwarding forwarding = new Forwarding();
-                Citizen citizen = new Citizen();
-                citizen.setIdCitizen(rs.getInt("idCitizen"));
+                Pacient pacient = new Pacient();
+                pacient.setIdPacient(rs.getInt("idPacient"));
 
                 forwarding.setIdForwarding(rs.getInt("idForwarding"));
                 forwarding.setCRM(rs.getString("CRM"));
                 forwarding.setRequest(rs.getString("request"));
                 forwarding.setNameOfRequestDoctor(rs.getString("nameOfRequestDoctor"));
-                forwarding.setCitizen(citizen);
+                forwarding.setPacient(pacient);
 
                 return forwarding;
             }
@@ -85,7 +84,7 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT f.* FROM FORWARDING f INNER JOIN CITIZEN c ON f.idCitizen = c.idCitizen"
+                    "SELECT f.* FROM FORWARDING f INNER JOIN PACIENT p ON f.idPacient = p.idPacient"
             );
             rs = pstm.executeQuery();
 
@@ -93,14 +92,14 @@ public class ForwardingDAOJDBC implements ForwardingDAO {
 
             while (rs.next()) {
                 Forwarding forwarding = new Forwarding();
-                Citizen citizen = new Citizen();
-                citizen.setIdCitizen(rs.getInt("idCitizen"));
+                Pacient pacient = new Pacient();
+                pacient.setIdPacient(rs.getInt("idPacient"));
 
                 forwarding.setIdForwarding(rs.getInt("idForwarding"));
                 forwarding.setCRM(rs.getString("CRM"));
                 forwarding.setRequest(rs.getString("request"));
                 forwarding.setNameOfRequestDoctor(rs.getString("nameOfRequestDoctor"));
-                forwarding.setCitizen(citizen);
+                forwarding.setPacient(pacient);
 
                 listForwarding.add(forwarding);
             }

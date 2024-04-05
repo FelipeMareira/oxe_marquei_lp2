@@ -2,13 +2,10 @@ package Model.DAO.impl;
 
 import Db.DatabaseConnection;
 import Model.DAO.QueryDAO;
-import Model.Entities.Citizen;
 import Model.Entities.Forwarding;
 import Model.Entities.PublicAgent;
 import Model.Entities.Query;
-import org.postgresql.core.v3.QueryExecutorImpl;
 
-import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +16,8 @@ public class QueryDAOJDBC implements QueryDAO {
 
     @Override
     public void insert(Query query) {
-        String sql = "INSERT INTO QUERY(nameOfConsultationDoctor, officeAddress, dateAndTimeConsultation, idPublicAgent, idForwarding) " +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO QUERY(nameOfConsultationDoctor, CRMConsultationDoctor, officeAddress, dateAndTimeConsultation, idPublicAgent, idForwarding) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pstm =  null;
 
         try {
@@ -28,10 +25,11 @@ public class QueryDAOJDBC implements QueryDAO {
             pstm = conn.prepareStatement(sql);
 
             pstm.setString(1, query.getNameOfConsultationDoctor());
-            pstm.setString(2, query.getOfficeAddress());
-            pstm.setTimestamp(3, Timestamp.valueOf(query.getDateAndTimeConsultation()));
-            pstm.setInt(4, query.getPublicAgent().getIdPublicAgent());
-            pstm.setInt(5, query.getForwarding().getIdForwarding());
+            pstm.setString(2, query.getCRMConsultationDoctor());
+            pstm.setString(3, query.getOfficeAddress());
+            pstm.setTimestamp(4, Timestamp.valueOf(query.getDateAndTimeConsultation()));
+            pstm.setInt(5, query.getPublicAgent().getIdPublicAgent());
+            pstm.setInt(6, query.getForwarding().getIdForwarding());
             pstm.execute();
 
         } catch (SQLException e) {
@@ -84,6 +82,7 @@ public class QueryDAOJDBC implements QueryDAO {
 
                 query.setIdQuery(rs.getInt("idQuery"));
                 query.setNameOfConsultationDoctor(rs.getString("nameOfConsultationDoctor"));
+                query.setCRMConsultationDoctor(rs.getString("CRMConsultationDoctor"));
                 query.setOfficeAddress(rs.getString("officeAddress"));
                 query.setDateAndTimeConsultation(rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime());
                 query.setPublicAgent(publicAgent);

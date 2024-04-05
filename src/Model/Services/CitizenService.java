@@ -1,11 +1,5 @@
 package Model.Services;
 
-import Model.DAO.CitizenDAO;
-import Model.DAO.DAOFactory;
-import Model.Entities.Citizen;
-
-import java.util.List;
-
 public class CitizenService {
 //    private CitizenDAO citizenDAO = DAOFactory.createCitizenDAO();
 //

@@ -29,6 +29,16 @@ public abstract class Person {
         this.address = address;
     }
 
+    public Person(String name, String CPF, String RG, String phoneNumber1,
+                  LocalDate dateOfBirth, String address) {
+        this.name = name;
+        this.CPF = CPF;
+        this.RG = RG;
+        this.phoneNumber1 = phoneNumber1;
+        this.dateOfBirth = dateOfBirth;
+        this.createdAt = LocalDateTime.now();
+        this.address = address;
+    }
     public String getName() {
         return name;
     }

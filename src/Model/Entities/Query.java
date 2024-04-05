@@ -6,8 +6,10 @@ public class Query {
 
     private Integer idQuery;
     private String nameOfConsultationDoctor;
-    private LocalDateTime dateAndTimeConsultation;
+    private String CRMConsultationDoctor;
     private String officeAddress;
+
+    private LocalDateTime dateAndTimeConsultation;
     private PublicAgent publicAgent;
     private Forwarding forwarding;
 
@@ -15,21 +17,23 @@ public class Query {
 
     }
 
-    public Query(Integer idQuery, String nameOfConsultationDoctor, LocalDateTime dateAndTimeConsultation,
-                 String officeAddress, PublicAgent publicAgent, Forwarding forwarding) {
+    public Query(Integer idQuery, String nameOfConsultationDoctor, String CRMConsultationDoctor, String officeAddress,
+                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Forwarding forwarding) {
         this.idQuery = idQuery;
         this.nameOfConsultationDoctor = nameOfConsultationDoctor;
-        this.dateAndTimeConsultation = dateAndTimeConsultation;
+        this.CRMConsultationDoctor = CRMConsultationDoctor;
         this.officeAddress = officeAddress;
+        this.dateAndTimeConsultation = dateAndTimeConsultation;
         this.publicAgent = publicAgent;
         this.forwarding = forwarding;
     }
-    public Query(String nameOfConsultationDoctor, LocalDateTime dateAndTimeConsultation,
-                 String officeAddress, PublicAgent publicAgent, Forwarding forwarding) {
 
+    public Query(String nameOfConsultationDoctor, String CRMConsultationDoctor, String officeAddress,
+                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Forwarding forwarding) {
         this.nameOfConsultationDoctor = nameOfConsultationDoctor;
-        this.dateAndTimeConsultation = dateAndTimeConsultation;
+        this.CRMConsultationDoctor = CRMConsultationDoctor;
         this.officeAddress = officeAddress;
+        this.dateAndTimeConsultation = dateAndTimeConsultation;
         this.publicAgent = publicAgent;
         this.forwarding = forwarding;
     }
@@ -50,12 +54,12 @@ public class Query {
         this.nameOfConsultationDoctor = nameOfConsultationDoctor;
     }
 
-    public LocalDateTime getDateAndTimeConsultation() {
-        return dateAndTimeConsultation;
+    public String getCRMConsultationDoctor() {
+        return CRMConsultationDoctor;
     }
 
-    public void setDateAndTimeConsultation(LocalDateTime dateAndTimeConsultation) {
-        this.dateAndTimeConsultation = dateAndTimeConsultation;
+    public void setCRMConsultationDoctor(String CRMConsultationDoctor) {
+        this.CRMConsultationDoctor = CRMConsultationDoctor;
     }
 
     public String getOfficeAddress() {
@@ -64,6 +68,14 @@ public class Query {
 
     public void setOfficeAddress(String officeAddress) {
         this.officeAddress = officeAddress;
+    }
+
+    public LocalDateTime getDateAndTimeConsultation() {
+        return dateAndTimeConsultation;
+    }
+
+    public void setDateAndTimeConsultation(LocalDateTime dateAndTimeConsultation) {
+        this.dateAndTimeConsultation = dateAndTimeConsultation;
     }
 
     public PublicAgent getPublicAgent() {
