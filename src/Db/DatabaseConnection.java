@@ -9,7 +9,7 @@ public class DatabaseConnection {
         Connection connection = null;
         try {
             //Classe importada para usar o banco
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda_dende2"
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda_dendev1"
             , "postgres", "1705");
             System.out.println("Conexao com o banco feita com sucesso");
         } catch (SQLException e) {
