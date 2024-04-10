@@ -1,6 +1,5 @@
 package Model.Entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 public class Query {
 
@@ -11,31 +10,31 @@ public class Query {
 
     private LocalDateTime dateAndTimeConsultation;
     private PublicAgent publicAgent;
-    private Forwarding forwarding;
+    private Solicitation solicitation;
 
     public Query() {
 
     }
 
     public Query(Integer idQuery, String nameOfConsultationDoctor, String CRMConsultationDoctor, String officeAddress,
-                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Forwarding forwarding) {
+                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Solicitation solicitation) {
         this.idQuery = idQuery;
         this.nameOfConsultationDoctor = nameOfConsultationDoctor;
         this.CRMConsultationDoctor = CRMConsultationDoctor;
         this.officeAddress = officeAddress;
         this.dateAndTimeConsultation = dateAndTimeConsultation;
         this.publicAgent = publicAgent;
-        this.forwarding = forwarding;
+        this.solicitation = solicitation;
     }
 
     public Query(String nameOfConsultationDoctor, String CRMConsultationDoctor, String officeAddress,
-                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Forwarding forwarding) {
+                 LocalDateTime dateAndTimeConsultation, PublicAgent publicAgent, Solicitation solicitation) {
         this.nameOfConsultationDoctor = nameOfConsultationDoctor;
         this.CRMConsultationDoctor = CRMConsultationDoctor;
         this.officeAddress = officeAddress;
         this.dateAndTimeConsultation = dateAndTimeConsultation;
         this.publicAgent = publicAgent;
-        this.forwarding = forwarding;
+        this.solicitation = solicitation;
     }
 
     public Integer getIdQuery() {
@@ -86,12 +85,12 @@ public class Query {
         this.publicAgent = publicAgent;
     }
 
-    public Forwarding getForwarding() {
-        return forwarding;
+    public Solicitation getSolicitation() {
+        return solicitation;
     }
 
-    public void setForwarding(Forwarding forwarding) {
-        this.forwarding = forwarding;
+    public void setSolicitation(Solicitation solicitation) {
+        this.solicitation = solicitation;
     }
 
     @Override
@@ -102,7 +101,7 @@ public class Query {
                 ", dateAndTimeConsultation=" + dateAndTimeConsultation +
                 ", officeAddress='" + officeAddress + '\'' +
                 ", publicAgent=" + publicAgent +
-                ", forwarding=" + forwarding +
+                ", solicitation=" + solicitation +
                 '}';
     }
 }

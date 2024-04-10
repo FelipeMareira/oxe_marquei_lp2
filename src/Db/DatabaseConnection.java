@@ -24,7 +24,7 @@ public class DatabaseConnection {
                 connection.close();
                 System.out.println("Banco fechado");
             } catch (Exception e) {
-                // TODO: handle exception
+                e.printStackTrace();
             }
         }
     }
@@ -34,7 +34,7 @@ public class DatabaseConnection {
             try {
                 st.close();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }

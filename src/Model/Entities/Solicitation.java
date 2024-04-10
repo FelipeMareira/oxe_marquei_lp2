@@ -1,35 +1,35 @@
 package Model.Entities;
 
-public class Forwarding {
-    private Integer idForwarding;
+public class Solicitation {
+    private Integer idSolicitation;
     private String CRM;
     private String request;
     private String nameOfRequestDoctor;
-    private Pacient pacient;
+    private Patient patient;
 
-    public Forwarding() {
+    public Solicitation() {
 
     }
-    public Forwarding(Integer idForwarding, String CRM, String request, String nameOfRequestDoctor, Pacient pacient) {
-        this.idForwarding = idForwarding;
+    public Solicitation(Integer idSolicitation, String CRM, String request, String nameOfRequestDoctor, Patient patient) {
+        this.idSolicitation = idSolicitation;
         this.CRM = CRM;
         this.request = request;
         this.nameOfRequestDoctor = nameOfRequestDoctor;
-        this.pacient = pacient;
+        this.patient = patient;
     }
-    public Forwarding(String CRM, String request, String nameOfRequestDoctor, Pacient pacient) {
+    public Solicitation(String CRM, String request, String nameOfRequestDoctor, Patient patient) {
         this.CRM = CRM;
         this.request = request;
         this.nameOfRequestDoctor = nameOfRequestDoctor;
-        this.pacient = pacient;
+        this.patient = patient;
     }
 
-    public Integer getIdForwarding() {
-        return idForwarding;
+    public Integer getIdSolicitation() {
+        return idSolicitation;
     }
 
-    public void setIdForwarding(Integer idForwarding) {
-        this.idForwarding = idForwarding;
+    public void setIdSolicitation(Integer idSolicitation) {
+        this.idSolicitation = idSolicitation;
     }
 
     public String getCRM() {
@@ -56,22 +56,22 @@ public class Forwarding {
         this.nameOfRequestDoctor = nameOfRequestDoctor;
     }
 
-    public Pacient getPacient() {
-        return pacient;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPacient(Pacient pacient) {
-        this.pacient = pacient;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     @Override
     public String toString() {
         return "Forwarding{" +
-                "idForwarding=" + idForwarding +
+                "idSolicitation=" + idSolicitation +
                 ", CRM='" + CRM + '\'' +
                 ", request='" + request + '\'' +
                 ", nameOfRequestDoctor='" + nameOfRequestDoctor + '\'' +
-                ", pacient=" + pacient +
+                ", pacient=" + patient +
                 '}';
     }
 }

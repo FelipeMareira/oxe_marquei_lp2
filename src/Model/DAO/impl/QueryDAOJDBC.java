@@ -2,7 +2,7 @@ package Model.DAO.impl;
 
 import Db.DatabaseConnection;
 import Model.DAO.QueryDAO;
-import Model.Entities.Forwarding;
+import Model.Entities.Solicitation;
 import Model.Entities.PublicAgent;
 import Model.Entities.Query;
 
@@ -30,7 +30,7 @@ public class QueryDAOJDBC implements QueryDAO {
             pstm.setString(3, query.getOfficeAddress());
             pstm.setTimestamp(4, Timestamp.valueOf(query.getDateAndTimeConsultation()));
             pstm.setInt(5, query.getPublicAgent().getIdPublicAgent());
-            pstm.setInt(6, query.getForwarding().getIdForwarding());
+            pstm.setInt(6, query.getSolicitation().getIdSolicitation());
             pstm.execute();
 
         } catch (SQLException e) {
@@ -67,7 +67,7 @@ public class QueryDAOJDBC implements QueryDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN FORWARDING f ON q.idForwarding = f.idForwarding WHERE q.idQuery = ?"
+                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN SOLICITATION f ON q.idSolicitation = f.idSolicitation WHERE q.idQuery = ?"
             );
 
             pstm.setInt(1, idQuery);
@@ -79,8 +79,8 @@ public class QueryDAOJDBC implements QueryDAO {
                 PublicAgent publicAgent = new PublicAgent();
                 publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
 
-                Forwarding forwarding = new Forwarding();
-                forwarding.setIdForwarding(rs.getInt("idForwarding"));
+                Solicitation solicitation = new Solicitation();
+                solicitation.setIdSolicitation(rs.getInt("idSolicitation"));
 
                 query.setIdQuery(rs.getInt("idQuery"));
                 query.setNameOfConsultationDoctor(rs.getString("nameOfConsultationDoctor"));
@@ -88,7 +88,7 @@ public class QueryDAOJDBC implements QueryDAO {
                 query.setOfficeAddress(rs.getString("officeAddress"));
                 query.setDateAndTimeConsultation(rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime());
                 query.setPublicAgent(publicAgent);
-                query.setForwarding(forwarding);
+                query.setSolicitation(solicitation);
 
                 return query;
             }
@@ -109,7 +109,7 @@ public class QueryDAOJDBC implements QueryDAO {
         try {
             conn = DatabaseConnection.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN FORWARDING f ON q.idForwarding = f.idForwarding"
+                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN SOLICITATION f ON q.idSolicitation = f.idSolicitation"
             );
 
 
@@ -122,15 +122,15 @@ public class QueryDAOJDBC implements QueryDAO {
                 PublicAgent publicAgent = new PublicAgent();
                 publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
 
-                Forwarding forwarding = new Forwarding();
-                forwarding.setIdForwarding(rs.getInt("idForwarding"));
+                Solicitation solicitation = new Solicitation();
+                solicitation.setIdSolicitation(rs.getInt("idForwarding"));
 
                 query.setIdQuery(rs.getInt("idQuery"));
                 query.setNameOfConsultationDoctor(rs.getString("nameOfConsultationDoctor"));
                 query.setOfficeAddress(rs.getString("officeAddress"));
                 query.setDateAndTimeConsultation(rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime());
                 query.setPublicAgent(publicAgent);
-                query.setForwarding(forwarding);
+                query.setSolicitation(solicitation);
 
                 listQuery.add(query);
             }

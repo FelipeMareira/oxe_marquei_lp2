@@ -105,33 +105,33 @@ classDiagram
     }
 
     Person <|-- PublicAgent
-    Citizen --> PublicAgent
+    Patient --> PublicAgent
     class PublicAgent {
         -String user
         -String password
         -String typeUser
     }
 
-    Person <|-- Citizen
-    class Citizen {
+    Person <|-- Patient
+    class Patient {
         -String SIGTAP
     }
     
-    Forwarding --> Citizen
-    class Forwarding {
+    Solicitation --> Patient
+    class Solicitation {
         -String nameOfRequestDoctor
         -String CRM
         -String request
+        -String nameofRequestDoctor
     }
 
     PublicAgent --> Query
+    Solicitation --> Query
     class Query {
         -LocalDate consultationDate
         -String nameOfConsultationDoctor
         -String officeAddress
-        
-        -scheduleAppointment()
-        -cancelAppointment()  
+        -Date dateAndTimeConsultation
     }
 ```
 ### Diagrama de Banco de Dados
@@ -143,6 +143,7 @@ erDiagram
 
     PUBLICAGENT ||--o{ QUERY : "registra"
     PUBLICAGENT {
+        int idPublicAgent
         string name
         string CPF
         string RG
@@ -156,8 +157,9 @@ erDiagram
         string typeUser
     }
     
-    CITIZEN ||--o{ FORWARDING : "possui"
-    CITIZEN {
+    PATIENT ||--o{ SOLICITATION : "possui"
+    PATIENT {
+        int idPatient
         string name
         string CPF
         string RG
@@ -169,15 +171,18 @@ erDiagram
         string email
         string SIGTAP
     }
-    FORWARDING ||--|| QUERY: "referencia"
-    FORWARDING {
-        string nameOfRequestDoctor
+    SOLICITATION ||--|| QUERY: "referencia"
+    SOLICITATION {
+        int idSolicitation
         string CRM
         string request
+        string nameOfRequestDoctor
     }
     QUERY {
-        LocalDate consultationDate
-        string name_of_consultation_doctor
+        int idQuery
+        string nameOfConsultationDoctor
+        string CRMConsultationDoctor
         string officeAddress
+        LocalDateTime dateAndTimeConsultation
     }
 ```
