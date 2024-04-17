@@ -4,16 +4,13 @@ public class Clinic {
     int idClinic;
     String nameOfClinic;
     String address;
+    String status;
 
-    public Clinic(int idClinic, String nameOfClinic, String address) {
+    public Clinic(int idClinic, String nameOfClinic, String address, String status) {
         this.idClinic = idClinic;
         this.nameOfClinic = nameOfClinic;
         this.address = address;
-    }
-
-    public Clinic(String nameOfClinic, String address) {
-        this.nameOfClinic = nameOfClinic;
-        this.address = address;
+        this.status = status;
     }
 
     public int getIdClinic() {
@@ -40,12 +37,21 @@ public class Clinic {
         this.address = address;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Clinic{" +
                 "idClinic=" + idClinic +
                 ", nameOfClinic='" + nameOfClinic + '\'' +
                 ", address='" + address + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
 }
