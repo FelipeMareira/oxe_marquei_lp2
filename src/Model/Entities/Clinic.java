@@ -4,10 +4,33 @@ public class Clinic {
     int idClinic;
     String nameOfClinic;
     String address;
+    String phoneNumber;
+    String email;
     String status;
 
-    public Clinic(int idClinic, String nameOfClinic, String address, String status) {
+    public Clinic() {
+
+    }
+    public Clinic(int idClinic, String nameOfClinic, String address, String phoneNumber, String email) {
         this.idClinic = idClinic;
+        this.nameOfClinic = nameOfClinic;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.status = "ativo";
+    }
+
+    public Clinic(int idClinic, String nameOfClinic, String address, String phoneNumber, String email,
+                  String status) {
+        this.idClinic = idClinic;
+        this.nameOfClinic = nameOfClinic;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.status = status;
+    }
+
+    public Clinic(String nameOfClinic, String address, String status) {
         this.nameOfClinic = nameOfClinic;
         this.address = address;
         this.status = status;
@@ -37,6 +60,22 @@ public class Clinic {
         this.address = address;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -51,6 +90,8 @@ public class Clinic {
                 "idClinic=" + idClinic +
                 ", nameOfClinic='" + nameOfClinic + '\'' +
                 ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
                 ", status='" + status + '\'' +
                 '}';
     }

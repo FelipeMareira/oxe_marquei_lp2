@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface PublicAgentDAO {
     void insert(PublicAgent publicAgent);
-    void update(String phoneNumber1, String address, String email, int idPublicAgent);
-    void deleteById(Integer id);
-    PublicAgent findById(Integer id);
+    void update(String phoneNumber1, String address, String email, Integer idPublicAgent);
+    PublicAgent findById(Integer idPublicAgent);
     List<PublicAgent> findAll();
+    void disable(Integer idPublicAgent);
 }

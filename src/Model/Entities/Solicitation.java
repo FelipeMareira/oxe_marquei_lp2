@@ -5,6 +5,7 @@ public class Solicitation {
     private String CRM;
     private String request;
     private String nameOfRequestDoctor;
+    private String speciality;
     private Patient patient;
 
     public Solicitation() {
@@ -56,6 +57,14 @@ public class Solicitation {
         this.nameOfRequestDoctor = nameOfRequestDoctor;
     }
 
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
     public Patient getPatient() {
         return patient;
     }
@@ -66,12 +75,11 @@ public class Solicitation {
 
     @Override
     public String toString() {
-        return "Forwarding{" +
-                "idSolicitation=" + idSolicitation +
-                ", CRM='" + CRM + '\'' +
-                ", request='" + request + '\'' +
-                ", nameOfRequestDoctor='" + nameOfRequestDoctor + '\'' +
-                ", pacient=" + patient +
-                '}';
+        return "------------------------------------\n" +
+                "Solicitação: " + this.getIdSolicitation() + "\n" +
+                "CRM do Médico Solicitante: " + this.getCRM() + "\n" +
+                "Pedido: " + this.getRequest() + "\n" +
+                "Nome do Médico do Pedido: " + this.getNameOfRequestDoctor() + "\n" +
+                "Especialidade: " + this.getSpeciality();
     }
 }

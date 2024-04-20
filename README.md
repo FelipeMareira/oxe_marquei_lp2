@@ -115,12 +115,6 @@ classDiagram
     class Patient {
         -String SIGTAP
     }
-    class Clinic {
-        int idClinic
-        string nameOfClinic
-        string address
-        string CNPJ
-    } 
 
     Person <|-- Doctor
     Doctor --> Clinic
@@ -129,7 +123,6 @@ classDiagram
         string CRM
         string specialty
     }
-
     
     Solicitation --> Patient
     class Solicitation {
@@ -138,10 +131,17 @@ classDiagram
         -String request
         -String specialtyProblem
     }
+    
+    class Clinic {
+        int idClinic
+        string nameOfClinic
+        string address
+        string CNPJ
+    }
 
     PublicAgent --> Query
     Solicitation --> Query
-    Clinic --> Query
+    Doctor --> Query
     class Query {
         -LocalDate consultationDate
         -Date dateAndTimeConsultation
@@ -165,6 +165,7 @@ erDiagram
         LocalDate dateOfBirth
         LocalDate createdAt
         string address
+        string email
         string userr
         string password
         string typeUser
@@ -191,17 +192,28 @@ erDiagram
         string CRM
         string request
         string nameOfRequestDoctor
+        int idPatient
     }
     
     DOCTOR ||--o{ CLINIC : "pertence"
+    DOCTOR ||--o{ QUERY: "ok"
     DOCTOR {
         int idDoctor
+        string name
+        string CPF
+        string RG
+        string phoneNumber1
+        string phoneNumber2
+        LocalDate dateOfBirth
+        LocalDate createdAt
+        string address
+        string email
         string CRM
         string specialty
         string status
+        int idClinic
     }
-
-    CLINIC ||--o{ QUERY: "ok"
+    
     CLINIC {
         int idClinic
         string nameOfClinic

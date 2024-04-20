@@ -1,22 +1,10 @@
-import Db.DatabaseConnection;
-import Model.DAO.impl.SolicitationDAOJDBC;
-import Model.DAO.impl.PatientDAOJDBC;
-import Model.DAO.impl.PublicAgentDAOJDBC;
-import Model.DAO.impl.QueryDAOJDBC;
-import Model.Entities.Solicitation;
-import Model.Entities.Patient;
-import Model.Entities.PublicAgent;
-import Model.Entities.Query;
-import Utils.SendEmail;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import Factory.ConnectionFactory;
 
 public class Main {
     public static void main(String[] args) {
 
         System.out.println("Hello world!");
-        DatabaseConnection.getConnection();
+        ConnectionFactory.getConnection();
 
 //        PatientDAOJDBC patientDAOJDBC = new PatientDAOJDBC();
 //        PublicAgentDAOJDBC publicAgentDAOJDBC = new PublicAgentDAOJDBC();

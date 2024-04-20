@@ -1,15 +1,15 @@
-package Db;
+package Factory;
 
 import java.sql.*;
 
-public class DatabaseConnection {
+public class ConnectionFactory {
 
     
     public static Connection getConnection() {
         Connection connection = null;
         try {
             //Classe importada para usar o banco
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda_dendev1"
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/agenda_dendev2"
             , "postgres", "1705");
             System.out.println("Conexao com o banco feita com sucesso");
         } catch (SQLException e) {
@@ -22,7 +22,6 @@ public class DatabaseConnection {
         if (connection != null) {
             try {
                 connection.close();
-                System.out.println("Banco fechado");
             } catch (Exception e) {
                 e.printStackTrace();
             }

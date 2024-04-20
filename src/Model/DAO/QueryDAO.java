@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface QueryDAO {
     void insert(Query query);
-    void update(LocalDateTime dateAndTimeOfConsultation, int idQuery);
-    Query findById(Integer id);
+    void update(LocalDateTime dateAndTimeOfConsultation, Integer idQuery);
+
+    Query findById(Integer idQuery);
     List<Query> findAll();
 }

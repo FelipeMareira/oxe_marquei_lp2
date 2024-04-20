@@ -1,6 +1,6 @@
 package Model.DAO.impl;
 
-import Db.DatabaseConnection;
+import Factory.ConnectionFactory;
 import Model.DAO.SolicitationDAO;
 import Model.Entities.Patient;
 import Model.Entities.Solicitation;
@@ -19,7 +19,7 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         PreparedStatement pstm = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "INSERT INTO SOLICITATION(CRM, request, nameOfRequestDoctor, idPatient) VALUES (?, ?, ?, ?)"
             );
@@ -34,8 +34,8 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
         }
     }
 
@@ -45,7 +45,7 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "SELECT f.* FROM SOLICITATION f INNER JOIN PATIENT p ON f.idPatient = p.idPatient WHERE f.idSolicitation = ?"
             );
@@ -68,9 +68,9 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "SELECT f.* FROM SOLICITATION f INNER JOIN PATIENT p ON f.idPatient = p.idPatient"
             );
@@ -106,9 +106,9 @@ public class SolicitationDAOJDBC implements SolicitationDAO {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }

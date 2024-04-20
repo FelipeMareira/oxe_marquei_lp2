@@ -7,26 +7,29 @@ public class Query {
     private Solicitation solicitation;
     private PublicAgent publicAgent;
     private Clinic clinic;
+    private Doctor doctor;
     private LocalDateTime dateAndTimeConsultation;
 
     public Query() {
 
     }
 
-    public Query(Integer idQuery, Solicitation solicitation, PublicAgent publicAgent,
-                 Clinic clinic, LocalDateTime dateAndTimeConsultation) {
+    public Query(Integer idQuery, Solicitation solicitation, PublicAgent publicAgent, Clinic clinic,
+                 Doctor doctor, LocalDateTime dateAndTimeConsultation) {
         this.idQuery = idQuery;
         this.solicitation = solicitation;
         this.publicAgent = publicAgent;
         this.clinic = clinic;
+        this.doctor = doctor;
         this.dateAndTimeConsultation = dateAndTimeConsultation;
     }
 
-    public Query(Solicitation solicitation, PublicAgent publicAgent,
-                 Clinic clinic, LocalDateTime dateAndTimeConsultation) {
+    public Query(Solicitation solicitation, PublicAgent publicAgent, Clinic clinic,
+                 Doctor doctor, LocalDateTime dateAndTimeConsultation) {
         this.solicitation = solicitation;
         this.publicAgent = publicAgent;
         this.clinic = clinic;
+        this.doctor = doctor;
         this.dateAndTimeConsultation = dateAndTimeConsultation;
     }
 
@@ -62,6 +65,14 @@ public class Query {
         this.clinic = clinic;
     }
 
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public LocalDateTime getDateAndTimeConsultation() {
         return dateAndTimeConsultation;
     }
@@ -72,12 +83,16 @@ public class Query {
 
     @Override
     public String toString() {
-        return "Query{" +
-                "idQuery=" + idQuery +
-                ", solicitation=" + solicitation +
-                ", publicAgent=" + publicAgent +
-                ", clinic=" + clinic +
-                ", dateAndTimeConsultation=" + dateAndTimeConsultation +
-                '}';
+        return "------------------------------------\n" +
+                "Consulta: " + this.getIdQuery() + "\n" +
+                "Nome do Paciente: " + this.solicitation.getPatient().getName() + "\n" +
+                "Motivo do Pedido: " + this.solicitation.getRequest() + "\n" +
+                "Nome do Médico do Pedido: " + this.solicitation.getNameOfRequestDoctor()+ "\n" +
+                "CRM do Médico do Pedido: " + this.solicitation.getCRM() + "\n" +
+                "Clinica: " + this.clinic.getNameOfClinic() + "\n" +
+                "Endereco: " + this.clinic.getAddress() + "\n" +
+                "Data e Hora da Consulta: " + this.getDateAndTimeConsultation() + "\n" +
+                "Médico da Consulta: " + this.getDoctor().getName() + "\n" +
+                "Especialidade: " + this.solicitation.getRequest();
     }
 }

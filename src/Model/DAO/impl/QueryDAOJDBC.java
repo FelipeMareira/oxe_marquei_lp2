@@ -1,10 +1,8 @@
 package Model.DAO.impl;
 
-import Db.DatabaseConnection;
+import Factory.ConnectionFactory;
 import Model.DAO.QueryDAO;
-import Model.Entities.Solicitation;
-import Model.Entities.PublicAgent;
-import Model.Entities.Query;
+import Model.Entities.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -17,35 +15,35 @@ public class QueryDAOJDBC implements QueryDAO {
 
     @Override
     public void insert(Query query) {
-        String sql = "INSERT INTO QUERY(nameOfConsultationDoctor, CRMConsultationDoctor, officeAddress, dateAndTimeConsultation, idPublicAgent, idForwarding) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO QUERY(dateAndTimeConsultation, idPublicAgent, idSolicitation, idDoctor, idClinic) " +
+                "VALUES (?, ?, ?, ?, ?)";
         PreparedStatement pstm =  null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(sql);
 
-            pstm.setString(1, query.getNameOfConsultationDoctor());
-            pstm.setString(2, query.getCRMConsultationDoctor());
-            pstm.setString(3, query.getOfficeAddress());
-            pstm.setTimestamp(4, Timestamp.valueOf(query.getDateAndTimeConsultation()));
-            pstm.setInt(5, query.getPublicAgent().getIdPublicAgent());
-            pstm.setInt(6, query.getSolicitation().getIdSolicitation());
+            pstm.setTimestamp(1, Timestamp.valueOf(query.getDateAndTimeConsultation()));
+            pstm.setInt(2, query.getPublicAgent().getIdPublicAgent());
+            pstm.setInt(3, query.getSolicitation().getIdSolicitation());
+            pstm.setInt(4, query.getDoctor().getIdDoctor());
+            pstm.setInt(5, query.getClinic().getIdClinic());
             pstm.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
+
     @Override
-    public void update(LocalDateTime dateAndTimeOfConsultation, int idQuery){
+    public void update(LocalDateTime dateAndTimeOfConsultation, Integer idQuery){
         PreparedStatement pstm = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "UPDATE QUERY SET dateAndTimeConsultation = ? WHERE idQuery = ?"
             );
@@ -55,8 +53,8 @@ public class QueryDAOJDBC implements QueryDAO {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
     @Override
@@ -65,16 +63,20 @@ public class QueryDAOJDBC implements QueryDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN SOLICITATION f ON q.idSolicitation = f.idSolicitation WHERE q.idQuery = ?"
+                        "SELECT q.* FROM QUERY q " +
+                            "INNER JOIN PUBLIC_AGENT p ON p.idPublicAgent = q.idPublicAgent " +
+                            "INNER JOIN SOLICITATION s ON s.idSolicitation = q.idSolicitation " +
+                            "INNER JOIN DOCTOR d ON d.idDoctor = q.idDoctor " +
+                            "INNER JOIN CLINIC c ON c.idClinic = q.idClinic " +
+                            "WHERE q.idQuery = ?"
             );
 
             pstm.setInt(1, idQuery);
             rs = pstm.executeQuery();
 
             if (rs.next()) {
-                Query query = new Query();
 
                 PublicAgent publicAgent = new PublicAgent();
                 publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
@@ -82,22 +84,28 @@ public class QueryDAOJDBC implements QueryDAO {
                 Solicitation solicitation = new Solicitation();
                 solicitation.setIdSolicitation(rs.getInt("idSolicitation"));
 
-                query.setIdQuery(rs.getInt("idQuery"));
-                query.setNameOfConsultationDoctor(rs.getString("nameOfConsultationDoctor"));
-                query.setCRMConsultationDoctor(rs.getString("CRMConsultationDoctor"));
-                query.setOfficeAddress(rs.getString("officeAddress"));
-                query.setDateAndTimeConsultation(rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime());
-                query.setPublicAgent(publicAgent);
-                query.setSolicitation(solicitation);
+                Doctor doctor = new Doctor();
+                doctor.setIdDoctor(rs.getInt("idDoctor"));
 
-                return query;
+                Clinic clinic = new Clinic();
+                clinic.setIdClinic(rs.getInt("idClinic"));
+
+                return new Query(
+                        rs.getInt("idQuery"),
+                        solicitation,
+                        publicAgent,
+                        clinic,
+                        doctor,
+                        rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime()
+                );
+
             }
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }
@@ -107,40 +115,47 @@ public class QueryDAOJDBC implements QueryDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
-                    "SELECT q.* FROM QUERY q INNER JOIN PUBLIC_AGENT p ON q.idPublicAgent = p.idPublicAgent INNER JOIN SOLICITATION f ON q.idSolicitation = f.idSolicitation"
+                        "SELECT q.* FROM QUERY q " +
+                            "INNER JOIN PUBLIC_AGENT p ON p.idPublicAgent = q.idPublicAgent " +
+                            "INNER JOIN SOLICITATION s ON s.idSolicitation = q.idSolicitation " +
+                            "INNER JOIN DOCTOR d ON d.idDoctor = q.idDoctor " +
+                            "INNER JOIN CLINIC c ON c.idClinic = q.idClinic"
             );
-
-
             rs = pstm.executeQuery();
             List<Query> listQuery = new ArrayList<>();
 
             while (rs.next()) {
-                Query query = new Query();
-
                 PublicAgent publicAgent = new PublicAgent();
                 publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
 
                 Solicitation solicitation = new Solicitation();
-                solicitation.setIdSolicitation(rs.getInt("idForwarding"));
+                solicitation.setIdSolicitation(rs.getInt("idSolicitation"));
 
-                query.setIdQuery(rs.getInt("idQuery"));
-                query.setNameOfConsultationDoctor(rs.getString("nameOfConsultationDoctor"));
-                query.setOfficeAddress(rs.getString("officeAddress"));
-                query.setDateAndTimeConsultation(rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime());
-                query.setPublicAgent(publicAgent);
-                query.setSolicitation(solicitation);
+                Doctor doctor = new Doctor();
+                doctor.setIdDoctor(rs.getInt("idDoctor"));
 
+                Clinic clinic = new Clinic();
+                clinic.setIdClinic(rs.getInt("idClinic"));
+
+                Query query = new Query(
+                        rs.getInt("idQuery"),
+                        solicitation,
+                        publicAgent,
+                        clinic,
+                        doctor,
+                        rs.getTimestamp("dateAndTimeConsultation").toLocalDateTime()
+                );
                 listQuery.add(query);
             }
             return listQuery;
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }

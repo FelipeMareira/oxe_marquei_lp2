@@ -8,6 +8,9 @@ public class Doctor extends Person{
     String status;
     Clinic clinic;
 
+    public Doctor() {
+
+    }
     public Doctor(int idDoctor, String CRM, String speciality, String status, Clinic clinic) {
         this.idDoctor = idDoctor;
         this.CRM = CRM;
@@ -16,8 +19,10 @@ public class Doctor extends Person{
         this.clinic = clinic;
     }
 
-    public Doctor(String name, String CPF, String RG, String phoneNumber1, String phoneNumber2, LocalDate dateOfBirth, String address, int idDoctor, String CRM, String speciality, String status, Clinic clinic) {
-        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
+    public Doctor(String name, String CPF, String RG, String phoneNumber1,
+                  String phoneNumber2, LocalDate dateOfBirth, String address, String email,
+                  int idDoctor, String CRM, String speciality, String status, Clinic clinic) {
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address, email);
         this.idDoctor = idDoctor;
         this.CRM = CRM;
         this.speciality = speciality;
@@ -25,8 +30,10 @@ public class Doctor extends Person{
         this.clinic = clinic;
     }
 
-    public Doctor(String name, String CPF, String RG, String phoneNumber1, LocalDate dateOfBirth, String address, int idDoctor, String CRM, String speciality, String status, Clinic clinic) {
-        super(name, CPF, RG, phoneNumber1, dateOfBirth, address);
+    public Doctor(String name, String CPF, String RG, String phoneNumber1,
+                  LocalDate dateOfBirth, String address, String email, int idDoctor,
+                  String CRM, String speciality, String status, Clinic clinic) {
+        super(name, CPF, RG, phoneNumber1, dateOfBirth, address, email);
         this.idDoctor = idDoctor;
         this.CRM = CRM;
         this.speciality = speciality;

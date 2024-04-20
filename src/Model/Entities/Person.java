@@ -13,12 +13,13 @@ public abstract class Person {
     private LocalDate dateOfBirth;
     private LocalDateTime createdAt;
     private String address;
+    private String email;
 
     public Person(){
 
     }
     public Person(String name, String CPF, String RG, String phoneNumber1,
-                  String phoneNumber2, LocalDate dateOfBirth, String address) {
+                  String phoneNumber2, LocalDate dateOfBirth, String address, String email) {
         this.name = name;
         this.CPF = CPF;
         this.RG = RG;
@@ -27,10 +28,11 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
         this.createdAt = LocalDateTime.now();
         this.address = address;
+        this.email = email;
     }
 
     public Person(String name, String CPF, String RG, String phoneNumber1,
-                  LocalDate dateOfBirth, String address) {
+                  LocalDate dateOfBirth, String address, String email) {
         this.name = name;
         this.CPF = CPF;
         this.RG = RG;
@@ -38,6 +40,7 @@ public abstract class Person {
         this.dateOfBirth = dateOfBirth;
         this.createdAt = LocalDateTime.now();
         this.address = address;
+        this.email = email;
     }
     public String getName() {
         return name;
@@ -103,17 +106,23 @@ public abstract class Person {
         this.address = address;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", CPF='" + CPF + '\'' +
-                ", RG='" + RG + '\'' +
-                ", phoneNumber1='" + phoneNumber1 + '\'' +
-                ", phoneNumber2='" + phoneNumber2 + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", createdAt=" + createdAt +
-                ", address='" + address + '\'' +
-                '}';
+        return "------------------------------------\n" +
+                "Nome: " + this.getName() + "\n" +
+                "CPF:" + this.getCPF() + "\n" +
+                "Numero de Telefone 1: " + this.getPhoneNumber1() + "\n" +
+                "Número de Telefone 2: " + this.getPhoneNumber2() + "\n" +
+                "Endereço: " + this.getAddress() + "\n" +
+                "E-mail: " + this.getEmail() + "\n";
     }
+
 }

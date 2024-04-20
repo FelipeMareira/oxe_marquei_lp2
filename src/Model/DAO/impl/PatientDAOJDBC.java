@@ -1,6 +1,6 @@
 package Model.DAO.impl;
 
-import Db.DatabaseConnection;
+import Factory.ConnectionFactory;
 import Model.DAO.PatientDAO;
 import Model.Entities.Patient;
 
@@ -19,7 +19,7 @@ public class PatientDAOJDBC implements PatientDAO {
         PreparedStatement pstm =  null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(sql);
 
             pstm.setString(1, patient.getName());
@@ -38,17 +38,17 @@ public class PatientDAOJDBC implements PatientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
 
     @Override
-    public void update(String phoneNumber1, String phoneNumber2, String address, String email, int idPatient) {
+    public void update(String phoneNumber1, String phoneNumber2, String address, String email, Integer idPatient) {
         PreparedStatement pstm =  null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "UPDATE PATIENT SET phoneNumber1 = ?, phoneNumber2 = ?, address = ?, email = ? WHERE idPatient = ?"
             );
@@ -63,8 +63,8 @@ public class PatientDAOJDBC implements PatientDAO {
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
 
@@ -74,7 +74,7 @@ public class PatientDAOJDBC implements PatientDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement("SELECT * FROM PATIENT WHERE idPatient = ?");
 
             pstm.setInt(1, idPatient);
@@ -82,28 +82,26 @@ public class PatientDAOJDBC implements PatientDAO {
             rs = pstm.executeQuery();
 
             if (rs.next()) {
-                Patient patient = new Patient();
-
-                patient.setIdPatient(rs.getInt("idPatient"));
-                patient.setName(rs.getString("name"));
-                patient.setCPF(rs.getString("CPF"));
-                patient.setRG(rs.getString("RG"));
-                patient.setPhoneNumber1(rs.getString("phoneNumber1"));
-                patient.setPhoneNumber2(rs.getString("phoneNumber2"));
-                patient.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
-                patient.setAddress(rs.getString("address"));
-                patient.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
-                patient.setEmail(rs.getString("email"));
-                patient.setSIGTAP(rs.getString("SIGTAP"));
-
+                Patient patient = new Patient(
+                        rs.getInt("idPatient"),
+                        rs.getString("name"),
+                        rs.getString("CPF"),
+                        rs.getString("RG"),
+                        rs.getString("phoneNumber1"),
+                        rs.getString("phoneNumber2"),
+                        rs.getDate("dateOfBirth").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getString("SIGTAP")
+                );
                 return patient;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }
@@ -114,36 +112,34 @@ public class PatientDAOJDBC implements PatientDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement("SELECT * FROM PATIENT");
             rs = pstm.executeQuery();
 
             List<Patient> listPatient = new ArrayList<>();
 
             while (rs.next()) {
-                Patient patient = new Patient();
-
-                patient.setIdPatient(rs.getInt("idPatient"));
-                patient.setName(rs.getString("name"));
-                patient.setCPF(rs.getString("CPF"));
-                patient.setRG(rs.getString("RG"));
-                patient.setPhoneNumber1(rs.getString("phoneNumber1"));
-                patient.setPhoneNumber2(rs.getString("phoneNumber2"));
-                patient.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
-                patient.setAddress(rs.getString("address"));
-                patient.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
-                patient.setEmail(rs.getString("email"));
-                patient.setSIGTAP(rs.getString("SIGTAP"));
-
+                Patient patient = new Patient(
+                        rs.getInt("idPatient"),
+                        rs.getString("name"),
+                        rs.getString("CPF"),
+                        rs.getString("RG"),
+                        rs.getString("phoneNumber1"),
+                        rs.getString("phoneNumber2"),
+                        rs.getDate("dateOfBirth").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getString("SIGTAP")
+                );
                 listPatient.add(patient);
             }
             return listPatient;
         }catch(SQLException e){
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }

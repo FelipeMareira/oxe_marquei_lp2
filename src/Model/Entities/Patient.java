@@ -1,11 +1,11 @@
 package Model.Entities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Patient extends Person {
 
     private int idPatient;
-    private String email;
     private String SIGTAP;
 
     public Patient() {
@@ -13,22 +13,19 @@ public class Patient extends Person {
     }
     public Patient(int idPatient, String name, String CPF, String RG, String phoneNumber1,
                    String phoneNumber2, LocalDate dateOfBirth, String address, String email, String SIGTAP) {
-        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address, email);
         this.idPatient = idPatient;
-        this.email = email;
         this.SIGTAP = SIGTAP;
     }
 
     public Patient(String name, String CPF, String RG, String phoneNumber1,
                    String phoneNumber2, LocalDate dateOfBirth, String address, String email, String SIGTAP) {
-        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address);
-        this.email = email;
+        super(name, CPF, RG, phoneNumber1, phoneNumber2, dateOfBirth, address, email);
         this.SIGTAP = SIGTAP;
     }
     public Patient(String name, String CPF, String RG, String phoneNumber1,
                    LocalDate dateOfBirth, String address, String email, String SIGTAP) {
-        super(name, CPF, RG, phoneNumber1, dateOfBirth, address);
-        this.email = email;
+        super(name, CPF, RG, phoneNumber1, dateOfBirth, address, email);
         this.SIGTAP = SIGTAP;
     }
 
@@ -38,14 +35,6 @@ public class Patient extends Person {
 
     public void setIdPatient(int idPatient) {
         this.idPatient = idPatient;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getSIGTAP() {
@@ -58,10 +47,12 @@ public class Patient extends Person {
 
     @Override
     public String toString() {
-        return "Citizen{" +
-                "  idPatient=" + idPatient +
-                ", email='" + email + '\'' +
-                ", SIGTAP='" + SIGTAP + '\'' +
-                '}';
+        return "------------------------------------\n" +
+                "Paciente: " + this.getIdPatient() + "\n" +
+                "Nome: " + this.getName() + "\n" +
+                "CPF:" + this.getCPF() + "\n" +
+                "SIGTAP: " + this.getSIGTAP() + "\n" +
+                "Número de Telefone: " + this.getPhoneNumber1() + "\n" +
+                "E-mail: " + this.getEmail() + "\n";
     }
 }

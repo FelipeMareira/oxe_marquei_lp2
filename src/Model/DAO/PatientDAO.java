@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PatientDAO {
     void insert(Patient patient);
-    void update(String phoneNumber1, String phoneNumber2, String address, String email, int idPatient);
+    void update(String phoneNumber1, String phoneNumber2, String address, String email, Integer idPatient);
     Patient findById(Integer idPatient);
     List<Patient> findAll();
 }

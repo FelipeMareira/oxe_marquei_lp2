@@ -1,6 +1,6 @@
 package Model.DAO.impl;
 
-import Db.DatabaseConnection;
+import Factory.ConnectionFactory;
 import Model.DAO.PublicAgentDAO;
 import Model.Entities.PublicAgent;
 import java.sql.*;
@@ -17,7 +17,7 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
         PreparedStatement pstm =  null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(sql);
 
             pstm.setString(1, publicAgent.getName());
@@ -38,50 +38,30 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
 
     @Override
-    public void update(String phoneNumber1, String address, String email, int idPublicAgent) {
+    public void update(String phoneNumber1, String address, String email, Integer idPublicAgent) {
         PreparedStatement pstm =  null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement(
                     "UPDATE PUBLIC_AGENT SET phoneNumber1 = ?, address = ?, email = ? WHERE idPublicAgent = ?"
             );
-
             pstm.setString(1, phoneNumber1);
             pstm.setString(2, address);
             pstm.setString(3, email);
             pstm.setInt(4, idPublicAgent);
             pstm.executeUpdate();
-            System.out.println("FUNCIONOUUUU");
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeConnection(conn);
-        }
-    }
-
-    @Override
-    public void deleteById(Integer idPublicAgent) {
-        PreparedStatement pstm = null;
-
-        try {
-            conn = DatabaseConnection.getConnection();
-            pstm = conn.prepareStatement("DELETE FROM PUBLIC_AGENT WHERE idPublicAgent = ?");
-
-            pstm.setInt(1, idPublicAgent);
-            pstm.executeUpdate();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
         }
     }
 
@@ -91,7 +71,7 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement("SELECT * FROM PUBLIC_AGENT WHERE idPublicAgent = ?");
 
             pstm.setInt(1, idPublicAgent);
@@ -99,29 +79,26 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
             rs = pstm.executeQuery();
 
             if (rs.next()) {
-                PublicAgent publicAgent = new PublicAgent();
-
-                publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
-                publicAgent.setName(rs.getString("name"));
-                publicAgent.setCPF(rs.getString("CPF"));
-                publicAgent.setRG(rs.getString("RG"));
-                publicAgent.setPhoneNumber1(rs.getString("phoneNumber1"));
-                publicAgent.setPhoneNumber2(rs.getString("phoneNumber2"));
-                publicAgent.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
-                publicAgent.setAddress(rs.getString("address"));
-                publicAgent.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
-                publicAgent.setEmail(rs.getString("email"));
-                publicAgent.setTypeUser(rs.getString("typeUser"));
-
-                return publicAgent;
+                return new PublicAgent(
+                        rs.getInt("idPublicAgent"),
+                        rs.getString("name"),
+                        rs.getString("CPF"),
+                        rs.getString("RG"),
+                        rs.getString("phoneNumber1"),
+                        rs.getString("phoneNumber2"),
+                        rs.getDate("dateOfBirth").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getString("typeUser")
+                );
             }
             return null;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
     }
@@ -132,37 +109,56 @@ public class PublicAgentDAOJDBC implements PublicAgentDAO {
         ResultSet rs = null;
 
         try {
-            conn = DatabaseConnection.getConnection();
+            conn = ConnectionFactory.getConnection();
             pstm = conn.prepareStatement("SELECT * FROM PUBLIC_AGENT");
             rs = pstm.executeQuery();
 
             List<PublicAgent> listPublicAgent = new ArrayList<>();
 
             while (rs.next()) {
-                PublicAgent publicAgent = new PublicAgent();
-
-                publicAgent.setIdPublicAgent(rs.getInt("idPublicAgent"));
-                publicAgent.setName(rs.getString("name"));
-                publicAgent.setCPF(rs.getString("CPF"));
-                publicAgent.setRG(rs.getString("RG"));
-                publicAgent.setPhoneNumber1(rs.getString("phoneNumber1"));
-                publicAgent.setPhoneNumber2(rs.getString("phoneNumber2"));
-                publicAgent.setDateOfBirth(rs.getDate("dateOfBirth").toLocalDate());
-                publicAgent.setAddress(rs.getString("address"));
-                publicAgent.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
-                publicAgent.setEmail(rs.getString("email"));
-                publicAgent.setTypeUser(rs.getString("typeUser"));
-
+                PublicAgent publicAgent = new PublicAgent(
+                        rs.getInt("idPublicAgent"),
+                        rs.getString("name"),
+                        rs.getString("CPF"),
+                        rs.getString("RG"),
+                        rs.getString("phoneNumber1"),
+                        rs.getString("phoneNumber2"),
+                        rs.getDate("dateOfBirth").toLocalDate(),
+                        rs.getString("address"),
+                        rs.getString("email"),
+                        rs.getString("typeUser")
+                );
                 listPublicAgent.add(publicAgent);
             }
             return listPublicAgent;
         }catch(SQLException e){
             e.printStackTrace();
         }finally {
-            DatabaseConnection.closeConnection(conn);
-            DatabaseConnection.closeStatement(pstm);
-            DatabaseConnection.closeResultSet(rs);
+            ConnectionFactory.closeConnection(conn);
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeResultSet(rs);
         }
         return null;
+    }
+
+    @Override
+    public void disable(Integer idPublicAgent) {
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+
+        try {
+            conn = ConnectionFactory.getConnection();
+            pstm = conn.prepareStatement(
+                    "UPDATE PUBLIC_AGENT SET status = ? WHERE idClinic = ?"
+            );
+            pstm.setString(1, "desativado");
+            pstm.setInt(2, idPublicAgent);
+            pstm.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionFactory.closeStatement(pstm);
+            ConnectionFactory.closeConnection(conn);
+        }
     }
 }
