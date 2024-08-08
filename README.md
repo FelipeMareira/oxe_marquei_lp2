@@ -42,14 +42,15 @@ O sistema deverá:
 
 ### Dos Menus: 
 
-#### Menus (Normal)
+#### Menus
 
 **Login** 
 
- 1. Usuário 
+ 1. Usuário (diferentes para agente e adminstrador)
  2. Senha
  3. Login
 
+**(agente público)**
 **Menu Inicial** 
 
  1. Pacientes
@@ -57,14 +58,24 @@ O sistema deverá:
 
 **Menu Gerenciar Pacientes**
 
- 1. Consultar paciente 
- 2. Cadastrar paciente 
- 3. Atualizar dados dos pacientes 
+ 1. Consultar dados de pacientes
+ 2. Cadastrar dados de pacientes 
+ 3. Atualizar dados dos pacientes
+
+**Menu Adicionar Pacientes**
+ 1. campos de dados dos pacientes
+ 2. adicionar
+ 3. cancelar
 
 **Menu Agendamento**
 
  1. Agendar consulta 
- 2. Confirmar consulta 
+ 2. Confirmar consulta
+
+**Menu Solicitar Consulta**
+ 1. Campos de dados de pacintes, doutor e clinica
+ 2. confirmar solicitação
+ 3. cancelar
 
 #### Menus (Admin: +2 telas e +2 opções no menu inicial)
 
@@ -73,17 +84,35 @@ O sistema deverá:
 2. Consultas
 3. Relatorio
 4. Gerenciar usuários
+5. Cadastrar
    
 **Relatórios(Admin)**
 1. Gerar relatório
 2. Aplicar filtro
    
-
 **Gerenciar usuários**
 1. Adicionar
 2. Editar
 3. Buscar
-   
+
+**Menu Cadastro**
+ 1. Consultar lista de clinicas
+ 2. Consultar lista de médicos
+ 3. Adicionar clinica
+ 4. Adicionar médico
+ 5. editar dados da clinica
+ 6. editar dados do médico
+
+ **Menu Adicionar Clinica**
+  1. Campos de dados da clinica
+  2. Adicionar clinica
+  3. cancelar
+
+ **Menu Adiconar Médico**
+  1. Campos de dados do médico
+  2. Adicionar médico
+  3. cancelar
+
 ### Diagrama de Classes
 ```mermaid
 ---
